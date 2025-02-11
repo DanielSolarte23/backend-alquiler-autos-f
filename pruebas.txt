@@ -1,0 +1,19 @@
+LOGIN
+
+{
+  "nombre": "daniel",
+  "correo": "daniel@ejemplo.com",
+  "numLic": "123",
+  "password":"123456"
+}
+
+AUTOS 
+
+{
+  "marca": "Toyota",
+  "modelo": "TXL",
+  "imagen": "1",
+  "valorAlquiler":25000,
+  "anio":"2024",
+  "disponibilidad":1
+}
