@@ -8,5 +8,7 @@ router.get('/', autoController.autosDisponibles);
 
 // Ruta para registrar un nuevo auto
 router.post('/', autoController.registrarAuto);
+router.put('/:id', autoController.actualizarAuto);
+router.delete('/:id', autoController.eliminarAuto);
 
 module.exports = router;

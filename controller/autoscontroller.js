@@ -30,3 +30,41 @@ exports.registrarAuto = async (req, res) => {
         res.status(500).json({ mensaje: "Error al crear el auto", error: e.message });
     }
 };
+
+exports.actualizarAuto = async (req, res) => {
+    const { id } = req.params; // Obtener el ID del auto de los parámetros de la URL
+    const { marca, modelo, imagen, valorAlquiler, anio, disponibilidad } = req.body;
+
+    try {
+        const autoActualizado = await Autos.update(
+            { marca, modelo, imagen, valorAlquiler, anio, disponibilidad },
+            { where: { id } }
+        );
+
+        if (autoActualizado[0] === 0) {
+            return res.status(404).json({ mensaje: "Auto no encontrado" });
+        }
+
+        res.json({ mensaje: "Auto actualizado correctamente" });
+    } catch (e) {
+        console.error('Error al actualizar el auto:', e);
+        res.status(500).json({ mensaje: "Error al actualizar el auto", error: e.message });
+    }
+};
+
+exports.eliminarAuto = async (req, res) => {
+    const { id } = req.params; // Obtener el ID del auto de los parámetros de la URL
+
+    try {
+        const autoEliminado = await Autos.destroy({ where: { id } });
+
+        if (autoEliminado === 0) {
+            return res.status(404).json({ mensaje: "Auto no encontrado" });
+        }
+
+        res.json({ mensaje: "Auto eliminado correctamente" });
+    } catch (e) {
+        console.error('Error al eliminar el auto:', e);
+        res.status(500).json({ mensaje: "Error al eliminar el auto", error: e.message });
+    }
+};
