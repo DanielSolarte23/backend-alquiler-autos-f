@@ -1,9 +1,11 @@
 const { Autos } = require('../models');
 
+const { Op } = require('sequelize'); // Importa Op desde sequelize
+
 exports.autosDisponibles = async (req, res) => {
     try {
         const autos = await Autos.findAll({ 
-            where: { disponibilidad: 1 } 
+            where: { disponibilidad: { [Op.gt]: 0 } } // Cambia el filtro aquí
         });
         res.json(autos);
     } catch (e) {
