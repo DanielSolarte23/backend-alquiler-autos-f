@@ -4,7 +4,8 @@ exports.realizarAlquiler = async (req, res) => {
     const { clienteId, autoId, fechaInicio, fechaFin } = req.body;
     try {
         const auto = await Autos.findByPk(autoId);
-        if (auto && auto.disponibilidad === 1) {
+        
+        if (auto && auto.disponibilidad > 0) {
             const cliente = await Cliente.findByPk(clienteId);
             if (!cliente) {
                 return res.json({ mensaje: "El cliente no existe" });
@@ -17,18 +18,20 @@ exports.realizarAlquiler = async (req, res) => {
                 fechaFin
             });
 
-            await auto.update({ disponibilidad: 0 });
+
+            await auto.update({ 
+                disponibilidad: auto.disponibilidad - 1 
+            });
 
             res.json(alquiler);
         } else {
             res.json({ mensaje: "El auto no está disponible o no existe" });
         }
     } catch (e) {
-        console.error(e); // Para ver el error en la consola
+        console.error(e); 
         res.json({ mensaje: "Error al registrar el alquiler", error: e.message });
     }
 };
-
 
 
 exports.historial = async (req, res) => {
