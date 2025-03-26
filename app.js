@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require("cors");
 const app = express();
 require('dotenv').config();
 
@@ -9,6 +10,8 @@ const clientesR = require('./routes/clienteroutes');
 // Definir el puerto con un valor predeterminado
 const PORT = process.env.PORT || 6000;
 
+
+app.use(cors());
 // Middleware para analizar JSON
 app.use(express.json());
 
